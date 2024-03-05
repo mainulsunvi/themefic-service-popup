@@ -14,6 +14,13 @@ class Admin_Menu {
     function init() {
         // add_menu_page(__( "Themefic Popup" , "tfsp" ), __( "Themefic Popup" , "tfsp" ),'manage_options', "tfsp_service_popup", null, 'dashicons-superhero', 28);
         add_action( 'admin_menu', array( $this, 'register_admin_menu') );
+        add_action( 'admin_init', array( $this, 'register_mysettings') );
+    }
+
+    function register_mysettings() {
+        //register our settings
+        register_setting( 'tfsp_popup', 'tfsp_service_post_select' );
+        register_setting( 'tfsp_popup', 'tfsp_service_popup_delay' );
     }
 
     function register_admin_menu(){
@@ -21,7 +28,7 @@ class Admin_Menu {
             __( "Themefic Popup" , "tfsp" ),
             __( "Themefic Popup" , "tfsp" ),
             'manage_options',
-            'tfsp-popup',
+            'tfsp_popup',
             array($this, 'my_custom_menu_page'),
             'dashicons-superhero',
             25
@@ -42,31 +49,44 @@ class Admin_Menu {
         ?>
         <div class="wrap">
             <h1>Themefic Service Popup Settings</h1>
-            <form method="post" <?php echo admin_url( 'admin.php' ); ?> novalidate="novalidate">
+            <form method="post" action="options.php">
+            <?php settings_fields( 'tfsp_popup' ); ?>
+            <?php do_settings_sections( 'tfsp_popup' ); ?>
+            <input type="hidden" value="/wp-admin/options.php?page=tfsp_popup" name="_wp_http_referer">
             <table class="form-table">
                 <tbody>
                     <tr>
                         <th scope="row">
-                            <label for="blogname">Select a Sevice for Popup</label>
+                            <label for="tfsp_service_post_select">Select a Sevice for Popup:</label>
                         </th>
                         <td>
                             <?php
                             if($loop->have_posts()) {
                                 $loop_posts = $loop->posts;
                                 ?>
-                                    <select name="cars" id="cars">
-                                <?php
+                                    <select name="tfsp_service_post_select" style="width: 15%;" id="products" value="<?php echo !empty(get_option('tfsp_service_post_select')) ? get_option('tfsp_service_post_select') : 0; ?>">
+                                <?php 
                                 foreach($loop_posts as $data) {
-                                    ?> <option value="<?php echo $data->post_title; ?>" ><?php echo $data->post_title; ?></option> <?php
+                                    ?> 
+                                        <option <?php echo get_option('tfsp_service_post_select') ==  $data->ID ? "selected" : "" ?> value="<?php echo $data->ID; ?>" ><?php echo $data->post_title; ?></option> 
+                                    <?php
                                 }
                             }
                             ?>
                             </select>
                         </td>
                     </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="blogname">Popup Delay Time (MS):</label>
+                        </th>
+                        <td>
+                            <input type="number" name="tfsp_service_popup_delay" id="products" style="width: 15%;" value="<?php echo !empty(get_option('tfsp_service_popup_delay')) ? get_option('tfsp_service_popup_delay') : 0; ?>">
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-                <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
+            <?php submit_button(); ?>
             </form>
         </div>
         <?php

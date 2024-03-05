@@ -11,8 +11,12 @@ function tfsp_autoloader( $class ): void {
 	}
 	
 	$fileName = !empty($matches[0]) ? (( str_contains( $matches[0], '_' ) ) ? strtolower( str_replace( '_', '-', $matches[0] ) ) : strtolower( $matches[0] )) : '';
-	
-	$path = !empty($dirname) ? $base_dir . $dirname . 'class-' . $fileName . '.php' : '';
+
+	if(!empty($dirname) && $dirname == "traits\\") {
+		$path = !empty($dirname) ? $base_dir . $dirname . 'trait-' . $fileName . '.php' : '';
+	} else {
+		$path = !empty($dirname) ? $base_dir . $dirname . 'class-' . $fileName . '.php' : '';
+	}
 	
 	if ( file_exists( $path ) ) {
 		require_once $path;

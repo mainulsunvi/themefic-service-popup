@@ -17,8 +17,6 @@
         )
     );  
 ?>
-
-
 <div class="tfsp-checkout-container">
     <div class="tfsp-checkout-popup">
         <div class="tfsp-before-popup-section">
