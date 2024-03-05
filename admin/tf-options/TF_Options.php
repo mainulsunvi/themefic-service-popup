@@ -24,7 +24,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 			$this->load_files();
 
 			//load metaboxes
-			$this->load_metaboxes();
+			// $this->load_metaboxes();
 
 			//load options
 			$this->load_options();
@@ -33,7 +33,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 			$this->load_taxonomy();
 
 			//enqueue scripts
-			add_action( 'admin_enqueue_scripts', array( $this, 'tf_options_admin_enqueue_scripts' ),9 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'tf_options_admin_enqueue_scripts' ), 10 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'tf_options_wp_enqueue_scripts' ) );
 		}
 
@@ -63,10 +63,10 @@ if ( ! class_exists( 'TF_Options' ) ) {
 			//Taxonomy Class
 			require_once $this->tf_options_file_path( 'classes/TF_Taxonomy_Metabox.php' );
 
-			require_once TF_ADMIN_PATH . 'tf-options/fields/icon/fontawesome-4.php';
-			require_once TF_ADMIN_PATH . 'tf-options/fields/icon/fontawesome-5.php';
-			require_once TF_ADMIN_PATH . 'tf-options/fields/icon/fontawesome-6.php';
-			require_once TF_ADMIN_PATH . 'tf-options/fields/icon/remix-icon.php';
+			require_once TFSP_ADMIN . 'tf-options/fields/icon/fontawesome-4.php';
+			require_once TFSP_ADMIN . 'tf-options/fields/icon/fontawesome-5.php';
+			require_once TFSP_ADMIN . 'tf-options/fields/icon/fontawesome-6.php';
+			require_once TFSP_ADMIN . 'tf-options/fields/icon/remix-icon.php';
 		}
 
 		/**
@@ -74,11 +74,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 		 * @author Foysal
 		 */
 		public function load_metaboxes() {
-			if ( $this->is_tf_pro_active() ) {
-				$metaboxes = glob( TF_PRO_ADMIN_PATH . 'tf-options/metaboxes/*.php' );
-			} else {
-				$metaboxes = glob( $this->tf_options_file_path( 'metaboxes/*.php' ) );
-			}
+			$metaboxes = glob( $this->tf_options_file_path( 'metaboxes/*.php' ) );
 
 			/*if( !empty( $pro_metaboxes ) ) {
 				$metaboxes = array_merge( $metaboxes, $pro_metaboxes );
@@ -97,11 +93,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 		 * @author Foysal
 		 */
 		public function load_options() {
-			if ( $this->is_tf_pro_active() ) {
-				$options = glob( TF_PRO_ADMIN_PATH . 'tf-options/options/*.php' );
-			} else {
-				$options = glob( $this->tf_options_file_path( 'options/*.php' ) );
-			}
+			$options = glob( $this->tf_options_file_path( 'options/*.php' ) );
 
 			if ( ! empty( $options ) ) {
 				foreach ( $options as $option ) {
@@ -117,11 +109,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 		 * @author Foysal
 		 */
 		public function load_taxonomy() {
-			if ( $this->is_tf_pro_active() ) {
-				$taxonomies = glob( TF_PRO_ADMIN_PATH . 'tf-options/taxonomies/*.php' );
-			} else {
-				$taxonomies = glob( $this->tf_options_file_path( 'taxonomies/*.php' ) );
-			}
+			$taxonomies = glob( $this->tf_options_file_path( 'taxonomies/*.php' ) );
 
 			if ( ! empty( $taxonomies ) ) {
 				foreach ( $taxonomies as $taxonomy ) {
@@ -139,25 +127,10 @@ if ( ! class_exists( 'TF_Options' ) ) {
 		public function tf_options_admin_enqueue_scripts( $screen ) {
 			global $post_type;
 			$tf_options_screens   = array(
-				'toplevel_page_tf_settings',
-				'tourfic-settings_page_tf_get_help',
-				'tourfic-settings_page_tf_license_info',
-				'tourfic-settings_page_tf_dashboard',
-				'tourfic-settings_page_tf_shortcodes',
-				'tourfic-vendor_page_tf_vendor_reports',
-				'tourfic-vendor_page_tf_vendor_list',
-				'tourfic-vendor_page_tf_vendor_commissions',
-				'tourfic-vendor_page_tf_vendor_withdraw',
-				'tf_hotel_page_tf-hotel-backend-booking',
-				'tf_tours_page_tf-tour-backend-booking',
-				'tf_tours_page_tf_tours_booking',
-				'tf_hotel_page_tf_hotel_booking',
-				'tf_apartment_page_tf_apartment_booking',
-				'tf_apartment_page_tf-apartment-backend-booking',
-				'tourfic-settings_page_tf-setup-wizard'
+				'toplevel_page_tf_settingsssss',
 			);
 			$tf_options_post_type = array( 'tf_hotel', 'tf_tours', 'tf_apartment', 'tf_email_templates' );
-			$admin_date_format_for_users  = !empty(tfopt( "tf-date-format-for-users")) ? tfopt( "tf-date-format-for-users") : "Y/m/d";
+			// $admin_date_format_for_users  = !empty(tfopt( "tf-date-format-for-users")) ? tfopt( "tf-date-format-for-users") : "Y/m/d";
 			if("tourfic-settings_page_tf_dashboard"==$screen){
 				//Order Data Retrive
 				$tf_old_order_limit = new WC_Order_Query( array(
@@ -300,9 +273,6 @@ if ( ! class_exists( 'TF_Options' ) ) {
 
 
 			$travelfic_toolkit_active_plugins = [];
-			if ( ! is_plugin_active( 'travelfic-toolkit/travelfic-toolkit.php' ) ) {
-				$travelfic_toolkit_active_plugins[] = "travelfic-toolkit";
-			}
 
 			$current_active_theme = !empty(get_option('stylesheet')) ? get_option('stylesheet') : '';
 			
@@ -310,26 +280,28 @@ if ( ! class_exists( 'TF_Options' ) ) {
 
 			//Color-Picker Css
 			wp_enqueue_style( 'wp-color-picker' );
-			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
-				wp_enqueue_style( 'tf-admin', TF_ASSETS_ADMIN_URL . 'css/tourfic-admin.min.css', '', TOURFIC );
-				wp_enqueue_style( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', TOURFIC );
+			// if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
+				wp_enqueue_style( 'tf-admin', TFSP_ADMIN_ASSETS . 'css/tourfic-admin.min.css', '', TFSP_VERSION );
+				wp_enqueue_style( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css', '', TFSP_VERSION );
 				wp_enqueue_style( 'tf-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'tf-fontawesome-5', '//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'tf-fontawesome-6', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'tf-remixicon', '//cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'tf-select2', '//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', array(), $this->tf_options_version() );
 				wp_enqueue_style( 'tf-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css', array(), $this->tf_options_version() );
-			}
+				wp_enqueue_style( 'tf-notyf', TFSP_ADMIN_ASSETS . 'libs/notyf/notyf.min.css', array(), $this->tf_options_version() );
+			// }
 
 			//Js
-			if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
+			// if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
 				
 				//date format
-				$date_format_change  = !empty(tfopt( "tf-date-format-for-users")) ? tfopt( "tf-date-format-for-users") : "Y/m/d";
-				wp_enqueue_script( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), TOURFIC, true );
-				wp_enqueue_script( 'tf-fullcalender', TF_ASSETS_ADMIN_URL . 'js/lib/fullcalender.min.js', array( 'jquery' ), TOURFIC, true );
+				// $date_format_change  = !empty(tfopt( "tf-date-format-for-users")) ? tfopt( "tf-date-format-for-users") : "Y/m/d";
+				wp_enqueue_script( 'tf-admin-sweet-alert', '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js', array( 'jquery' ), TFSP_VERSION, true );
+				// wp_enqueue_script( 'tf-fullcalender', TFSP_ADMIN_ASSETS . 'js/lib/fullcalender.min.js', array( 'jquery' ), TFSP_VERSION, true );
+				wp_enqueue_script( 'tf-notyf', TFSP_ADMIN_ASSETS . 'libs/notyf/notyf.min.js', array( 'jquery' ), TFSP_VERSION, true );
 				
-				wp_enqueue_script( 'tf-admin', TF_ASSETS_ADMIN_URL . 'js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), TOURFIC, true );
+				wp_enqueue_script( 'tf-admin', TFSP_ADMIN_ASSETS . 'js/tourfic-admin-scripts.min.js', array( 'jquery', 'wp-data', 'wp-editor', 'wp-edit-post' ), TFSP_VERSION, true );
 				wp_localize_script( 'tf-admin', 'tf_admin_params',
 					array(
 						'tf_nonce'                         => wp_create_nonce( 'updates' ),
@@ -350,7 +322,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 						'installed'                        => __( 'Installed', 'tourfic' ),
 						'activated'                        => __( 'Activated', 'tourfic' ),
 						'install_failed'                   => __( 'Install failed', 'tourfic' ),
-						'date_format_change_backend' 	   => $date_format_change,
+						// 'date_format_change_backend' 	   => $date_format_change,
 						'i18n'                             => array(
 							'no_services_selected' => __( 'Please select at least one service.', 'tourfic' ),
 						)
@@ -373,20 +345,20 @@ if ( ! class_exists( 'TF_Options' ) ) {
 				}
 				wp_enqueue_media();
 				wp_enqueue_editor();
-			}
+			// }
 
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
 
-			$tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
+			// $tf_google_map = function_exists( 'is_tf_pro' ) && is_tf_pro() && ! empty( tfopt( 'google-page-option' ) ) ? tfopt( 'google-page-option' ) : "false";
 			wp_localize_script( 'tf-admin', 'tf_options', array(
 				'ajax_url'             => admin_url( 'admin-ajax.php' ),
 				'nonce'                => wp_create_nonce( 'tf_options_nonce' ),
-				'gmaps'                => $tf_google_map,
+				// 'gmaps'                => $tf_google_map,
 				'tf_complete_order'    => isset( $tf_complete_orders ) ? $tf_complete_orders : '',
 				'tf_cancel_orders'     => isset( $tf_cancel_orders ) ? $tf_cancel_orders : '',
 				'tf_chart_enable'      => isset( $tf_chart_enable ) ? $tf_chart_enable : '',
-				'tf_admin_date_format' => $admin_date_format_for_users,
+				// 'tf_admin_date_format' => $admin_date_format_for_users,
 				'tf_export_import_msg' => array(
 					'imported'       => __( 'Imported successfully!', 'tourfic' ),
 					'import_confirm' => __( 'Are you sure you want to import this data?', 'tourfic' ),
@@ -525,11 +497,7 @@ if ( ! class_exists( 'TF_Options' ) ) {
 		}
 
 		public function is_tf_pro_active() {
-			if ( is_plugin_active( 'tourfic-pro/tourfic-pro.php' ) && defined( 'TF_PRO' ) ) {
-				return true;
-			}
-
-			return false;
+			return true;
 		}
 
 	}

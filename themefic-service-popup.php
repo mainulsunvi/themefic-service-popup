@@ -31,10 +31,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'TFSP_ROOT', plugin_dir_path( __FILE__ ) );
+define( 'TFSP_ADMIN', plugin_dir_path( __FILE__ ) . "admin/");
 define( 'TFSP_ROOT_URL', plugin_dir_url( __FILE__ ) );
+define( 'TFSP_ADMIN_ASSETS', TFSP_ROOT_URL . 'admin/tf-options/assets/' );
 
 require TFSP_ROOT . 'loader/autoload.php';
 require_once TFSP_ROOT . 'inc/container/DependencyContainer.php';
+require_once TFSP_ROOT . '/admin/tf-options/TF_Options.php';
 
 if ( ! function_exists( 'get_plugin_data' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -43,6 +46,7 @@ if ( ! function_exists( 'get_plugin_data' ) ) {
 define( 'TFSP_DATA', get_plugin_data( __FILE__ ) );
 define('CAP_PREFIX', strtoupper(TFSP_DATA["TextDomain"]));
 define('SM_PREFIX', TFSP_DATA["TextDomain"]);
+define('TFSP_VERSION', TFSP_DATA["Version"]);
 
 if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	return;

@@ -111,58 +111,6 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				$this->option_position
 			);
 
-            //Dashboard submenu
-			add_submenu_page(
-				$this->option_id,
-				__('Dashboard', 'tourfic'),
-				__('Dashboard', 'tourfic'),
-				'manage_options',
-				'tf_dashboard',
-				array( $this, 'tf_dashboard_page' ),
-			);
-
-			//Setting submenu
-			add_submenu_page(
-				$this->option_id,
-				__('Settings', 'tourfic'),
-				__('Settings', 'tourfic'),
-				'manage_options',
-				$this->option_id . '#tab=general',
-				array( $this, 'tf_options_page' ),
-			);
-
-			//Get Help submenu
-			add_submenu_page(
-				$this->option_id,
-				__('Get Help', 'tourfic'),
-				__('Get Help', 'tourfic'),
-				'manage_options',
-				'tf_get_help',
-				array( $this,'tf_get_help_callback'),
-			);
-
-			// Shortcode submenu
-			add_submenu_page(
-				$this->option_id,
-				__('Shortcodes', 'tourfic'),
-				__('Shortcodes', 'tourfic'),
-				'manage_options',
-				'tf_shortcodes',
-				array( 'TF_Shortcodes','tf_shortcode_callback'),
-			);
-
-			if ( function_exists('is_tf_pro') ) {
-				//License Info submenu
-				add_submenu_page(
-					$this->option_id,
-					__('License Info', 'tourfic'),
-					__('License Info', 'tourfic'),
-					'manage_options',
-					'tf_license_info',
-					array( $this,'tf_license_info_callback'),
-				);
-			}
-
 			// remove first submenu
 			remove_submenu_page( $this->option_id, $this->option_id );
 
@@ -174,7 +122,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		<div class="tf-setting-top-bar">
 			<div class="version">
 				<img src="<?php echo TF_ASSETS_APP_URL; ?>images/tourfic-logo.webp" alt="logo">
-				<span>v<?php echo esc_attr( TOURFIC ); ?></span>
+				<span>v<?php echo esc_attr( TFSP_VERSION ); ?></span>
 			</div>
 			<div class="other-document">
 				<svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #003c79;background: ;">
@@ -221,7 +169,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 			?>
 			<div class="tf-setting-dashboard">
 				<!-- dashboard-header-include -->
-				<?php tf_dashboard_header(); ?>
+				<?php // tf_dashboard_header(); ?>
 
 				<div class="tf-setting-preview">
 				<!-- dashboard-banner-section -->
@@ -399,7 +347,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		<div class="tf-setting-dashboard">
 
 			<!-- dashboard-header-include -->
-			<?php echo tf_dashboard_header(); ?>
+			<?php // echo tf_dashboard_header(); ?>
 
 			<div class="tf-settings-help-center">
 				<div class="tf-help-center-banner">
@@ -575,7 +523,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 		<div class="tf-setting-dashboard">
 
 			<!-- dashboard-header-include -->
-			<?php echo tf_dashboard_header(); ?>
+			<?php // echo tf_dashboard_header(); ?>
 			
 			<div class="tf-setting-license">
 				<div class="tf-setting-license-tabs">
@@ -661,7 +609,7 @@ if ( ! class_exists( 'TF_Settings' ) ) {
 				?>
 				<div class="tf-setting-dashboard">
 				<!-- dashboard-header-include -->
-				<?php echo tf_dashboard_header(); ?>
+				<?php // echo tf_dashboard_header(); ?>
 
                 <div class="tf-option-wrapper tf-setting-wrapper">
                     <form method="post" action="" class="tf-option-form <?php echo esc_attr($ajax_save_class) ?>" enctype="multipart/form-data">

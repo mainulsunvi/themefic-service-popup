@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 
 function tf_apt_amenities_cats() {
-	$amenities_cats = ! empty( tf_data_types( tfopt( 'amenities_cats' ) ) ) ? tf_data_types( tfopt( 'amenities_cats' ) ) : '';
+	// $amenities_cats = ! empty( tf_data_types( tfopt( 'amenities_cats' ) ) ) ? tf_data_types( tfopt( 'amenities_cats' ) ) : '';
 	$all_cats       = [];
 	if ( ! empty( $amenities_cats ) && is_array( $amenities_cats ) ) {
 		foreach ( $amenities_cats as $key => $cat ) {
@@ -82,11 +82,11 @@ TF_Metabox::metabox( 'tf_apartment_opt', array(
 					'options'   	=> array(
 						'default' 			=> array(
 							'title'			=> 'Default',
-							'url' 			=> TF_ASSETS_ADMIN_URL."images/template/default-apartment.jpg",
+							'url' 			=> TFSP_ADMIN_ASSETS."images/template/default-apartment.jpg",
 						),
 						'design-1' => array(
 							'title' => 'Design 1',
-							'url'   => TF_ASSETS_ADMIN_URL . "images/template/design1-apartment.jpg",
+							'url'   => TFSP_ADMIN_ASSETS . "images/template/design1-apartment.jpg",
 						),
 					),
 					'default'   	=> 'default',
@@ -420,7 +420,7 @@ TF_Metabox::metabox( 'tf_apartment_opt', array(
 					'type'    => 'select',
 					'label'   => __( 'Tax class', 'tourfic' ),
 					'subtitle'  => __( 'Select your class, and tax will calculate based on your chosen class. PS: If you activate partial payment option tax will be calculated upon partial amount as woocommerce regulations.', 'tourfic' ),
-					'options' => tf_taxable_option_callback(),
+					// 'options' => tf_taxable_option_callback(),
 					'is_pro'  => true
 				),
 				/*array(

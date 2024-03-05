@@ -7,7 +7,7 @@ $badge_up_pro = '<div class="tf-csf-badge"><span class="tf-upcoming">' . __( "Up
 
 if(!function_exists('tf_hotel_facilities_categories')) {
 	function tf_hotel_facilities_categories() {
-		$facilities_cats = ! empty( tf_data_types( tfopt( 'hotel_facilities_cats' ) ) ) ? tf_data_types( tfopt( 'hotel_facilities_cats' ) ) : '';
+		// $facilities_cats = ! empty( tf_data_types( tfopt( 'hotel_facilities_cats' ) ) ) ? tf_data_types( tfopt( 'hotel_facilities_cats' ) ) : '';
 		$all_cats       = [];
 		if ( ! empty( $facilities_cats ) && is_array( $facilities_cats ) ) {
 			foreach ( $facilities_cats as $key => $cat ) {
@@ -81,15 +81,15 @@ TF_Metabox::metabox( 'tf_hotels_opt', array(
 					'options'   	=> array( 
 						'design-1' 				=> array(
 							'title'			=> 'Design 1',
-							'url' 			=> TF_ASSETS_ADMIN_URL."images/template/design1-hotel.jpg",
+							'url' 			=> TFSP_ADMIN_ASSETS."images/template/design1-hotel.jpg",
 						),
 						'design-2' 				=> array(
 							'title'			=> 'Design 2',
-							'url' 			=> TF_ASSETS_ADMIN_URL."images/template/design2-hotel.jpg",
+							'url' 			=> TFSP_ADMIN_ASSETS."images/template/design2-hotel.jpg",
 						),
 						'default' 			=> array(
 							'title'			=> 'Defult',
-							'url' 			=> TF_ASSETS_ADMIN_URL."images/template/default-hotel.jpg",
+							'url' 			=> TFSP_ADMIN_ASSETS."images/template/default-hotel.jpg",
 						),
 					),
 					'default'   	=> 'design-1',
@@ -186,7 +186,7 @@ TF_Metabox::metabox( 'tf_hotels_opt', array(
 					'type'    => 'select',
 					'label'   => __( 'Tax class', 'tourfic' ),
 					'subtitle'  => __( 'Select your class, and tax will calculate based on your chosen class. PS: If you activate partial payment option tax will be calculated upon partial amount as woocommerce regulations.', 'tourfic' ),
-					'options' => tf_taxable_option_callback(),
+					// 'options' => tf_taxable_option_callback(),
 					'is_pro'  => true
 				),
 			),

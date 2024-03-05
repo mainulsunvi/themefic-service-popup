@@ -26,8 +26,6 @@ if ( ! class_exists( 'TF_Shortcodes' ) ) {
 		 */
 		public static function tf_shortcode_callback() {
 			echo '<div class="tf-setting-dashboard">';
-			//dashboard-header-include
-			echo tf_dashboard_header();
 			?>
             <div class="tf-shortcode-generator-section">
                 <div class="tf-shortcode-generators">
