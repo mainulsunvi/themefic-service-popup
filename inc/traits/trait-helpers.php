@@ -7,6 +7,8 @@ defined( 'ABSPATH' ) || exit;
 
 trait Helpers {
 
+   public $cart_item_id;
+
     function serialize_to_array( $var ) {
 		if ( ! empty( $var ) && gettype( $var ) == "string" ) {
 			$tf_serialize_date = preg_replace_callback( '!s:(\d+):"(.*?)";!', function ( $match ) {
@@ -20,10 +22,13 @@ trait Helpers {
 	}
 
     function is_tourfic() {
-        $option_id = !empty(get_option("tfsp_service_post_select")) ? get_option("tfsp_service_post_select") : null;
+        $popup_datas = !empty( TFSP_Settings["tfsp_popup_products"]) ? $this->serialize_to_array(TFSP_Settings["tfsp_popup_products"]) : array();
+        $selected_ids = wp_list_pluck($popup_datas, 'tfsp_products_for_popup');
+
         foreach(WC()->cart->get_cart() as $cart_item) {
             $item_id = $cart_item['data']->get_id();
-            if($item_id == $option_id){
+            $this->cart_item_id = $item_id;
+            if(in_array($item_id, $selected_ids)){
                 return true;
             }
         }

@@ -69,6 +69,14 @@ TF_Settings::option( 'tfsp_settings', array(
 			'icon'   => 'fa-solid fa-screwdriver-wrench',
 			'fields' => array(
 				array(
+					'id'         => 'tfsp_disable_popup',
+					'type'       => 'switch',
+					'label'      => __( 'Disable Popups', 'tfsp' ),
+					'subtitle' => __( 'Enable this option if you wish to disable all the popups from showing.', 'tfsp' ),
+					"placeholder" => __("Popup Title", 'tfsp'),
+					'default' => false,
+				),
+				array(
 					'id'         => 'tfsp_popup_opening_delay',
 					'type'       => 'number',
 					'label'      => __( 'Popup Delay', 'tfsp' ),
@@ -78,6 +86,7 @@ TF_Settings::option( 'tfsp_settings', array(
 					'attributes' => array(
 						'min' => '0',
 					),
+					'dependency' => array("tfsp_disable_popup", "!=", "1"),
 				),
 				array(
 					'id'         => 'tfsp_popup_main_title',
@@ -89,6 +98,7 @@ TF_Settings::option( 'tfsp_settings', array(
 					'attributes' => array(
 						'min' => '0',
 					),
+					'dependency' => array("tfsp_disable_popup", "!=", "1"),
 				),
 				array(
 					'id'         => 'tfsp_popup_button_text',
@@ -97,14 +107,15 @@ TF_Settings::option( 'tfsp_settings', array(
 					'subtitle' => __( 'Enter the popup button text.', 'tfsp' ),
 					"placeholder" => __("Popup Button Text", 'tfsp'),
 					"default" => __("Continue", 'tfsp'),
+					'dependency' => array("tfsp_disable_popup", "!=", "1"),
 				),
 				array(
 					'id'         => 'tfsp_other_service_box',
 					'type'       => 'switch',
 					'label'      => __( 'Other Service Box', 'tfsp' ),
 					'subtitle' => __( 'Enable this option if you wish to include an "Other Service" textbox in the popup.', 'tfsp' ),
-					"placeholder" => __("Popup Title", 'tfsp'),
 					'default' => true,
+					'dependency' => array("tfsp_disable_popup", "!=", "1"),
 				),
 			),
 		)	
