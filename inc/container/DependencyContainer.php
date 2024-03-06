@@ -1,6 +1,7 @@
 <?php
 
-
+// don't load directly
+defined( 'ABSPATH' ) || exit;
 
 require_once TFSP_ROOT . 'inc/container/interface/ContainerInterface.php';
 

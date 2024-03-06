@@ -43,6 +43,9 @@ if ( ! class_exists( 'TF_Repeater' ) ) {
 								if ( $this->field['id'] == "hotel-facilities" ) {
 									$tf_repater_default_value = __( 'Hotel Facility', 'tourfic' );
 								}
+								if ( $this->field['id'] == "tfsp_popup_products" ) {
+									$tf_repater_default_value = get_the_title($value["tfsp_products_for_popup"]);
+								}
 							?>
                             <div class="tf-single-repeater tf-single-repeater-<?php echo $this->field['id'];?>">
 							<input type="hidden" name="tf_parent_field" value="<?php echo $this->parent_field; ?>">

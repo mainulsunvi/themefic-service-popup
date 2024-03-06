@@ -2,6 +2,9 @@
 
 namespace TFSP\Classes;
 
+// don't load directly
+defined( 'ABSPATH' ) || exit;
+
 class Public_Assets {
 	private string $plugin_version;
 	
@@ -22,7 +25,7 @@ class Public_Assets {
 				'sm_prefix' => SM_PREFIX,
 				'nonce' => wp_create_nonce( SM_PREFIX . '-nonce' ),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'tfsp_popup_delay' => !empty(get_option('tfsp_service_popup_delay')) ? get_option('tfsp_service_popup_delay') : 1000,
+				'tfsp_popup_delay' => !empty(TFSP_Settings["tfsp_popup_opening_delay"]) ? TFSP_Settings["tfsp_popup_opening_delay"] : 0,
 			)
 		);
 	}

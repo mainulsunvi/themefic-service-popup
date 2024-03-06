@@ -2,15 +2,17 @@
 
 namespace TFSP\Classes;
 
+// don't load directly
+defined( 'ABSPATH' ) || exit;
+
+use TFSP\Traits\Helpers;
 use WP_Query;
 
+
 class Admin_Menu {
-    // protected $menu_args = array(
-    //     "title" => __( "Themefic Popup" , "tfsp" ),
-    //     'capability' => 'manage_options',
-    //     'slug' =>  'tfsp_service_popup',
-    //     'icon' => 'dashicons-superhero',
-    // );
+
+    use Helpers;
+
     function init() {
         // add_menu_page(__( "Themefic Popup" , "tfsp" ), __( "Themefic Popup" , "tfsp" ),'manage_options', "tfsp_service_popup", null, 'dashicons-superhero', 28);
         add_action( 'admin_menu', array( $this, 'register_admin_menu') );

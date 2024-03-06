@@ -24,11 +24,11 @@
  * Domain Path: /languages
  */
 
-use TFSP\Classes\Dependencies;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+use TFSP\Classes\Dependencies;
 
 define( 'TFSP_ROOT', plugin_dir_path( __FILE__ ) );
 define( 'TFSP_ADMIN', plugin_dir_path( __FILE__ ) . "admin/");
@@ -47,6 +47,7 @@ define( 'TFSP_DATA', get_plugin_data( __FILE__ ) );
 define('CAP_PREFIX', strtoupper(TFSP_DATA["TextDomain"]));
 define('SM_PREFIX', TFSP_DATA["TextDomain"]);
 define('TFSP_VERSION', TFSP_DATA["Version"]);
+define('TFSP_Settings', !empty(get_option("tfsp_settings")) ? get_option("tfsp_settings") : array());
 
 if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	return;

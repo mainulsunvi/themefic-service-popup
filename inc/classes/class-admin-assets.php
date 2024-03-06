@@ -2,6 +2,10 @@
 
 namespace TFSP\Classes;
 
+// don't load directly
+defined( 'ABSPATH' ) || exit;
+
+
 class Admin_Assets {
 	private string $plugin_version;
 	

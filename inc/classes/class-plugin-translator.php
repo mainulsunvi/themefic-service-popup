@@ -1,5 +1,9 @@
 <?php
+
 namespace TFSP\Classes;
+
+// don't load directly
+defined( 'ABSPATH' ) || exit;
 
 class Plugin_Translator {
 	function init(): void {

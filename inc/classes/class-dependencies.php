@@ -2,6 +2,9 @@
 
 namespace TFSP\Classes;
 
+// don't load directly
+defined( 'ABSPATH' ) || exit;
+
 class Dependencies {
 	private object $admin_loader;
 	private object $public_loader;

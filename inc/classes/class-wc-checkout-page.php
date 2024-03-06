@@ -2,6 +2,9 @@
 
 namespace TFSP\Classes;
 
+// don't load directly
+defined( 'ABSPATH' ) || exit;
+
 use TFSP\Traits\Helpers;
 
 class Wc_Checkout_Page {
@@ -37,7 +40,7 @@ class Wc_Checkout_Page {
             <div class="tfsp-checkout-popup">
                 <div class="tfsp-before-popup-section">
                     <div class="tfsb-popup-title">
-                        <h3>Services You May Like to Add</h3>
+                        <h3><?php echo !empty(TFSP_Settings["tfsp_popup_main_title"]) ? TFSP_Settings["tfsp_popup_main_title"] : __("Services You May Like to Add") ?></h3>
                     </div>
                     <div class="tfsp-checkout-popup-cross">
                         <span>
@@ -71,7 +74,8 @@ class Wc_Checkout_Page {
                             <p><?php echo $service["desc"]; ?> </p>
                         </div>
                     <?php endforeach;?>
-                    <div class="tf-single-tour-extra tour-extra-single">
+                    <?php if(!empty(TFSP_Settings["tfsp_other_service_box"]) && TFSP_Settings["tfsp_other_service_box"] == 1): ?>
+                        <div class="tf-single-tour-extra tour-extra-single">
                             <label for="tfsp-other-textarea">
                                 <div class="tf-extra-check-box">
                                     <input type="checkbox" value="<?php echo $key; ?>" data-title="Nam esse magnam nost" id="tfsp-other-textarea" name="tfsp-other-textarea">
@@ -79,14 +83,17 @@ class Wc_Checkout_Page {
                                 </div>
                                 <div class="tf-extra-content">
                                     <h5>
-                                        <span class="tfsp-service-title">Other Service</span>
+                                        <span class="tfsp-service-title"><?php echo __("Other Service", SM_PREFIX) ?></span>
                                     </h5>														
                                 </div>
                             </label>
                             <textarea class="tfsb-popup-textarea" placeholder="Describe the Service You need"></textarea>
                         </div>
+                    <?php endif; ?>
                     <!-- Popup End -->
-                    <div class="popup-submit-button">Submit</div>
+                    <?php if(!empty(TFSP_Settings["tfsp_popup_button_text"])): ?>
+                        <div class="popup-submit-button"><?php echo __(TFSP_Settings["tfsp_popup_button_text"], SM_PREFIX) ?></div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -100,7 +107,7 @@ class Wc_Checkout_Page {
         ?>
             <tr class="order-total" style="display: none;">
                 
-                <td class="service-title"><strong>Services</strong></td>
+                <td class="service-title"><strong><?php echo __("Services", SM_PREFIX) ?></strong></td>
                 <td class="services"></td>
             </tr>
         <?php
